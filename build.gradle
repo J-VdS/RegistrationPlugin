@@ -10,12 +10,10 @@ repositories{
 }
 
 dependencies{
-    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
-    compileOnly "org.xerial:sqlite-jdbc:3.28.0"
+    compileOnly "com.github.Anuken.Arc:arc-core:-SNAPSHOT"
+    compileOnly "com.github.Anuken.Mindustry:core:-SNAPSHOT"
 
-    compileOnly "com.github.Anuken.Arc:arc-core:master-SNAPSHOT"
-    compileOnly "com.github.Anuken.Mindustry:core:master-SNAPSHOT"
-
+    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.28.0'
 }
 
 jar{

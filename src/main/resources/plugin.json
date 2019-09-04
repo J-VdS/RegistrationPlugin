@@ -1,7 +1,7 @@
 {
   "name": "RegistrationPlugin",
   "author": "Fishbuilder",
-  "main": "registrationPlugin.RegistrationPlugin",
+  "main": "register.RegistrationPlugin",
   "description": "A plugin that adds a registration plugin. Interacts with a sqlite database and a discord bot",
   "version": 0.1
 }
