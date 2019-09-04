@@ -12,7 +12,7 @@ test.db
 The last line should always be `test.db`.
 
 ### Finally starting the bot:
-copy and paste `loop.py`,` bot.py` and `token.txt` in the server directory. (directory containing run_server.bat, run_server.sh or server.jar)
+copy and paste `loop.py`,` bot.py`, `sqlite_mindustry.py` and `token.txt` in the server directory. (directory containing run_server.bat, run_server.sh or server.jar)
 `python loop.py`
 
 The bot will run forever until you use !shutdown in your discord server.
@@ -30,3 +30,6 @@ java sqlite driver: https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc/3.
 
 Simply place the output jar from the step above in your server's `config/plugins` directory and restart the server.
 List your currently installed plugins by running the `plugins` command.
+
+### TODO
+[ ] make a new team instead of searching for one without a core
