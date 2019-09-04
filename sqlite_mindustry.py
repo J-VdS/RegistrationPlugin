@@ -19,7 +19,7 @@ def insert(db, discordid, login, password):
                      (discordid, login, password))
         conn.commit()
         succes = True
-    except Exception as e:
+    except:
         succes = False
     finally:
         conn.close()
@@ -32,7 +32,7 @@ def check(db, discordid, login):
         c = conn.cursor()
         c.execute('SELECT id FROM login WHERE id=? OR login=?', (discordid, login))
         num = len(c.fetchmany())
-    except Exception as e:
+    except:
         num = 1
     finally:
         c.close()
@@ -46,7 +46,7 @@ def get_data(db, discordid):
         c = conn.cursor()
         c.execute('SELECT login, password FROM login WHERE id=?', (discordid,))
         data = c.fetchmany()
-    except Exception as e:
+    except:
         data = [('error', 'error')]
     finally:
         c.close()
@@ -61,7 +61,7 @@ def changeLogin(db, discordid, login, password):
                      (login, password, discordid))
         conn.commit()
         success = True
-    except Exception as e:
+    except:
         success = False
     finally:
         conn.close()
