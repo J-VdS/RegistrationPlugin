@@ -1,4 +1,4 @@
-package example;
+package registrationPlugin;
 
 import io.anuke.arc.*;
 import io.anuke.arc.util.*;
@@ -9,10 +9,10 @@ import io.anuke.mindustry.game.EventType.*;
 import io.anuke.mindustry.gen.*;
 import io.anuke.mindustry.plugin.Plugin;
 
-public class ExamplePlugin extends Plugin{
+public class RegistrationPlugin extends Plugin{
 
     //register event handlers and create variables in the constructor
-    public ExamplePlugin(){
+    public RegistrationPlugin(){
         //listen for a block selection event
         Events.on(BuildSelectEvent.class, event -> {
             if(!event.breaking && event.builder != null && event.builder.buildRequest() != null && event.builder.buildRequest().block == Blocks.thoriumReactor && event.builder instanceof Player){
