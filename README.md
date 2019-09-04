@@ -11,7 +11,8 @@ test.db
 ```
 The last line should always be `test.db`.
 
-Finally starting the bot:
+### Finally starting the bot:
+copy and paste `loop.py`,` bot.py` and `token.txt` in the server directory. (directory containing run_server.bat, run_server.sh or server.jar)
 `python loop.py`
 
 The bot will run forever until you use !shutdown in your discord server.
