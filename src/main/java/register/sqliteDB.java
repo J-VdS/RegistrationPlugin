@@ -12,7 +12,7 @@ public class sqliteDB {
             Class.forName("org.sqlite.JDBC");
             this.c = DriverManager.getConnection("jdbc:sqlite:test.db");
             Statement stmt = this.c.createStatement();
-            stmt.execute("CREATE TABLE IF NOT EXISTS login (login TEXT, password TEXT, uuid TEXT, ip TEXT)");
+            stmt.execute("CREATE TABLE IF NOT EXISTS login (id INTEGER, login TEXT, password TEXT, uuid TEXT, ip TEXT)");
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
