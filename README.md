@@ -1,3 +1,21 @@
+### discordbot
+install python 3.6 or higher
+
+run this command in your commandprompt: `pip install -U discord.py` 
+
+To run this bot you will need to make a token.txt file first. This file should contain:
+```
+token
+your_id
+test.db
+```
+The last line should always be `test.db`.
+
+Finally starting the bot:
+`python loop.py`
+
+The bot will run forever until you use !shutdown in your discord server.
+
 ### Building a Jar
 
 `gradlew jar` / `./gradlew jar`
