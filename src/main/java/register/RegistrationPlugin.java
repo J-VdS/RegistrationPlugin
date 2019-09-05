@@ -25,7 +25,7 @@ public class RegistrationPlugin extends Plugin{
             Team no_core = getTeamNoCore(event.player);
             event.player.setTeam(no_core);
             Call.onPlayerDeath(event.player);
-            event.player.sendMessage("[sky]You will need to login with [accent]/log_in[] to get access to the server.[] More info on the indielm discordserver.");
+            event.player.sendMessage("[sky]You will need to login with [accent]/login[] to get access to the server.[] More info on the indielm discordserver.");
         });
         db.closeConnection();
     }
@@ -63,7 +63,7 @@ public class RegistrationPlugin extends Plugin{
                     player.setTeam(Vars.defaultTeam);
                     Call.onPlayerDeath(player);
                 }
-                player.sendMessage("Your ip and uuid are saved to skip the log_in procedure next time.");
+                player.sendMessage("Your ip and uuid are saved to skip the login procedure next time.");
 
             } else {
                 player.sendMessage("[scarlet]Wrong login and pwd combination[]\nOnly use lowercase letters.");
