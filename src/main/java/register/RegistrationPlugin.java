@@ -63,7 +63,7 @@ public class RegistrationPlugin extends Plugin{
                     player.setTeam(Vars.defaultTeam);
                     Call.onPlayerDeath(player);
                 }
-                player.sendMessage("Your ip and uuid are saved to skip the login procedure next time.");
+                player.sendMessage("Your uuid is saved to skip the login procedure next time.");
 
             } else {
                 player.sendMessage("[scarlet]Wrong login and pwd combination[]\nOnly use lowercase letters.");

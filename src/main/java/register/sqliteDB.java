@@ -36,6 +36,11 @@ public class sqliteDB {
             ResultSet rs = pstm.executeQuery();
             if (rs.next()){
                 //set uuid and IP
+                pstm = this.c.prepareStatement("UPDATE login SET uuid = ? WHERE login = ? and password = ?");
+                pstm.setString(1, uuid);
+                pstm.setString(2, login);
+                pstm.setString(3, pwd);
+                pstm.executeUpdate();
                 return true;
             } else {
                 return false;
