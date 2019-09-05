@@ -14,20 +14,25 @@ public class RegistrationPlugin extends Plugin{
 
     //register event handlers and create variables in the constructor
     public RegistrationPlugin(){
-        sqliteDB db = new sqliteDB();
         Events.on(PlayerJoin.class, event ->{
+            sqliteDB db = new sqliteDB();
             //if (event.player.isAdmin && db.isAdmin(event.player.uuid)) return;
+            //check if uuid in db
+            System.out.println(event.player.uuid);
             if (db.uuidCheck(event.player.uuid)){
                 event.player.sendMessage("[green]Login succes via uuid[]\n[sky]Enjoy your game![]");
+                db.closeConnection();
                 return;
+            } else {
+                db.closeConnection();
             }
-            //check if playeruuid, ip already in db
+
             Team no_core = getTeamNoCore(event.player);
             event.player.setTeam(no_core);
             Call.onPlayerDeath(event.player);
             event.player.sendMessage("[sky]You will need to login with [accent]/login[] to get access to the server.[] More info on the indielm discordserver.");
         });
-        db.closeConnection();
+
     }
 
     //register commands that run on the server
