@@ -12,7 +12,7 @@ public class sqliteDB {
             Class.forName("org.sqlite.JDBC");
             this.c = DriverManager.getConnection("jdbc:sqlite:test.db");
             Statement stmt = this.c.createStatement();
-            stmt.execute("CREATE TABLE IF NOT EXISTS login (id INTEGER, login TEXT, password TEXT, uuid TEXT, ip TEXT)");
+            stmt.execute("CREATE TABLE IF NOT EXISTS login (id INTEGER, login TEXT, password TEXT, uuid TEXT, ip TEXT, isAdmin INTEGER)");
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -46,5 +46,52 @@ public class sqliteDB {
         }
     }
 
+    public boolean isAdmin(String uuid){
+        try {
+            PreparedStatement pstm = this.c.prepareStatement("SELECT * FROM login WHERE uuid = ? AND isAdmin = 1");
+            pstm.setString(1, uuid);
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()){
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 
+    public boolean isAdmin(String login, String password){
+        try {
+            PreparedStatement pstm = this.c.prepareStatement("SELECT * FROM login WHERE login = ? AND  password = ? AND isAdmin = 1");
+            pstm.setString(1, login);
+            pstm.setString(2, password);
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()){
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean uuidCheck(String uuid){
+        try{
+            PreparedStatement pstm = this.c.prepareStatement("SELECT * FROM login WHERE uuid = ?");
+            pstm.setString(1, uuid);
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()){
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 }

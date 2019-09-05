@@ -10,19 +10,34 @@ import asyncio
 with open('token.txt', 'r') as infile:
     data = [i.strip('\n') for i in infile.readlines()]
     TOKEN = data[0] #first line in token.txt
-    OWNERID = data[1] #second line in token.txt
+    SERVERID = int(data[1])
     DB = data[2]
-    
+'''
+roles:
+    #Registered
+    #Admin
+'''
 
-client = commands.Bot(command_prefix = '!') 
-channels = {}
+client = commands.Bot(command_prefix = '..') 
 
 
 @client.event
 async def on_ready():
     sqlite_mindustry.make_db("test.db")
     print("bot is ready...")
-        
+
+
+@client.event
+async def on_member_update(old, new):
+    guild = client.get_guild(SERVERID)
+    if guild and old.roles != new.roles and new.guild == guild:
+        print(new.name + "-> db updated")
+        admin_role = discord.utils.find(lambda r: r.name == "Admin", guild.roles)
+        if admin_role in new.roles:
+            sqlite_mindustry.changeAdmin(DB, 1, new.id)
+        else:
+            sqlite_mindustry.changeAdmin(DB, 0, new.id)
+            
 
 @client.command()
 async def signup(ctx, login=None, password=None):
@@ -32,6 +47,10 @@ You are able to change them with !changelogin and see them with !showllogin.
 **important:** The system isn't case sensitive, (only use lowercase ascii characters)
 *We are storing some data to speed up the loginprocess.*
     '''
+    guild = client.get_guild(SERVERID)
+    if guild:
+        registered_role = discord.utils.find(lambda r: r.name == "Registered", guild.roles)
+    
     if not(isinstance(ctx.channel, discord.DMChannel)):
         await ctx.message.delete()
         try:
@@ -49,13 +68,16 @@ You are able to change them with !changelogin and see them with !showllogin.
     elif sqlite_mindustry.check(DB, ctx.author.id, login):
         await ctx.send("already in DB or login already used")
     else:
-        succes = sqlite_mindustry.insert(DB, ctx.author.id, login.lower(), password.lower())
+        succes = sqlite_mindustry.insert(DB, ctx.author.id, login.lower(), password.lower(), 0)
         if succes:
             #msg = await client.send_message(channels[BOT_CHANNEL], 'success add role')
             #member = discord.utils.get(msg.server.members, id=ID)
             #role = discord.utils.get(msg.server.roles, name=ROLE)
             #await client.add_roles(member, role)
             await ctx.send('Success!')
+            if registered_role:
+                member = guild.get_member(ctx.author.id)
+                await member.add_roles(registered_role)
         else:
             await ctx.send('Failed')
     
@@ -104,6 +126,11 @@ async def deletelogin(ctx):
     succes = sqlite_mindustry.delete(DB, ctx.message.author.id)
     try: 
         await ctx.author.send('Data deleted' if succes else 'Failed')
+        guild = client.get_guild(SERVERID)
+        if guild:
+            registered_role = discord.utils.find(lambda r: r.name == "Registered", guild.roles)
+            member = guild.get_member(ctx.author.id)
+            await member.remove_roles(registered_role)
     except:
         pass
 
@@ -111,7 +138,7 @@ async def deletelogin(ctx):
 #shutdown
 @client.command()
 async def shutdown(ctx):
-    if ctx.author.id == OWNERID:
+    if ctx.author.id == ctx.guild.owner_id:
         #give shutdown command via cmd
         #temp via file
         open("shutdown", "w").close()

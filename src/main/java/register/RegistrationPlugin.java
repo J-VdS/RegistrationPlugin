@@ -14,16 +14,20 @@ public class RegistrationPlugin extends Plugin{
 
     //register event handlers and create variables in the constructor
     public RegistrationPlugin(){
-        //sqliteDB db = new sqliteDB();
-        //db.closeConnection();
+        sqliteDB db = new sqliteDB();
         Events.on(PlayerJoin.class, event ->{
-
+            //if (event.player.isAdmin && db.isAdmin(event.player.uuid)) return;
+            if (db.uuidCheck(event.player.uuid)){
+                event.player.sendMessage("[green]Login succes via uuid[]\n[sky]Enjoy your game![]");
+                return;
+            }
             //check if playeruuid, ip already in db
             Team no_core = getTeamNoCore(event.player);
             event.player.setTeam(no_core);
             Call.onPlayerDeath(event.player);
             event.player.sendMessage("[sky]You will need to login with [accent]/log_in[] to get access to the server.[] More info on the indielm discordserver.");
         });
+        db.closeConnection();
     }
 
     //register commands that run on the server
@@ -44,6 +48,12 @@ public class RegistrationPlugin extends Plugin{
             }
             sqliteDB db = new sqliteDB();
             if (db.check(args[0], args[1], player.uuid, "0.0.0.0")){
+                //check if isAdmin in db
+                if (db.isAdmin(args[0], args[1]) && player.isAdmin == false){
+                    Vars.netServer.admins.adminPlayer(player.uuid, player.usid);
+                    player.sendMessage("[sky]Adminstatus applied");
+                    player.isAdmin = true;
+                }
                 //set team normal way
                 player.sendMessage("[green]succes![] Use [accent] /team [] to change team.");
                 if (Vars.state.rules.pvp){

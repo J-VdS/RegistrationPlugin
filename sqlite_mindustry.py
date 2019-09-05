@@ -7,16 +7,17 @@ def make_db(db):
                                                      login TEXT,
                                                      password TEXT,
                                                      ip TEXT,
-                                                     uuid TEXT)''')
+                                                     uuid TEXT,
+                                                     isAdmin INTEGER)''')
     conn.commit()
     conn.close()
     
 
-def insert(db, discordid, login, password):
+def insert(db, discordid, login, password, isAdmin):
     try:
         conn = sqlite3.connect(db)    
-        conn.execute('INSERT INTO login(id, login, password) VALUES(?,?,?)',
-                     (discordid, login, password))
+        conn.execute('INSERT INTO login(id, login, password, isAdmin) VALUES(?,?,?,?)',
+                     (discordid, login, password, isAdmin))
         conn.commit()
         succes = True
     except:
@@ -80,6 +81,17 @@ def delete(db, discordid):
     finally:
         conn.close()
         return success
+    
+
+def changeAdmin(db, isAdmin, id):
+    try:
+        conn = sqlite3.connect(db)
+        conn.execute("UPDATE login SET isAdmin = ? WHERE id = ?",
+                     (isAdmin, id))
+        conn.commit()
+        print("successfully change adminstatus %s" %(id))
+    finally:
+        conn.close()
         
 
 
