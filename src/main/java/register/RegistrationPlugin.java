@@ -16,9 +16,14 @@ public class RegistrationPlugin extends Plugin{
     public RegistrationPlugin(){
         Events.on(PlayerJoin.class, event ->{
             sqliteDB db = new sqliteDB();
-            //if (event.player.isAdmin && db.isAdmin(event.player.uuid)) return;
+            if (!event.player.isAdmin && db.isAdmin(event.player.uuid)){
+                Vars.netServer.admins.adminPlayer(event.player.uuid, event.player.usid);
+                event.player.isAdmin = true;
+            } else if(event.player.isAdmin && !db.isAdmin(event.player.uuid)){
+                Vars.netServer.admins.unAdminPlayer(event.player.uuid);
+                event.player.isAdmin = false;
+            }
             //check if uuid in db
-            System.out.println(event.player.uuid);
             if (db.uuidCheck(event.player.uuid)){
                 event.player.sendMessage("[green]Login succes via uuid[]\n[sky]Enjoy your game![]");
                 db.closeConnection();
