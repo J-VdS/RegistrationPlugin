@@ -38,6 +38,17 @@ public class RegistrationPlugin extends Plugin{
             event.player.sendMessage("[sky]You will need to login with [accent]/login[] to get access to the server.[] More info on the indielm discordserver.");
         });
 
+        Events.on(PlayerLeave.class, event ->{
+           sqliteDB db = new sqliteDB();
+           db.playerLeave(event.player.uuid);
+           db.closeConnection();
+        });
+
+        Events.on(WorldLoadEvent.class, event ->{
+            //put the players who aren't yet logged in back on a team with no core
+
+        });
+
     }
 
     //register commands that run on the server

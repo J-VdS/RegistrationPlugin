@@ -8,7 +8,8 @@ def make_db(db):
                                                      password TEXT,
                                                      ip TEXT,
                                                      uuid TEXT,
-                                                     isAdmin INTEGER)''')
+                                                     isAdmin INTEGER,
+                                                     loggedIn INTEGER)''')
     conn.commit()
     conn.close()
     
@@ -16,8 +17,8 @@ def make_db(db):
 def insert(db, discordid, login, password, isAdmin):
     try:
         conn = sqlite3.connect(db)    
-        conn.execute('INSERT INTO login(id, login, password, isAdmin) VALUES(?,?,?,?)',
-                     (discordid, login, password, isAdmin))
+        conn.execute('INSERT INTO login(id, login, password, isAdmin, loggedIn) VALUES(?,?,?,?,?)',
+                     (discordid, login, password, isAdmin, 0))
         conn.commit()
         succes = True
     except:
