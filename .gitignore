@@ -161,3 +161,4 @@ test.db
 ## Python - bot stuff
 token.txt
 shutdown
+_pycache_
