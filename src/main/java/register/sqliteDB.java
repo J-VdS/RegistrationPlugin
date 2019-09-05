@@ -112,4 +112,20 @@ public class sqliteDB {
             System.out.println(e.getMessage());
         }
     }
+
+    public boolean loggedIn(String uuid){
+        try{
+            PreparedStatement pstm = this.c.prepareStatement("SELECT * FROM login WHERE uuid = ? AND loggedIn = 1");
+            pstm.setString(1, uuid);
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()){
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 }

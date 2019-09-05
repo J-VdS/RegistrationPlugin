@@ -8,6 +8,8 @@ import io.anuke.mindustry.entities.type.*;
 import io.anuke.mindustry.game.EventType.*;
 import io.anuke.mindustry.game.Team;
 import io.anuke.mindustry.gen.*;
+
+import io.anuke.mindustry.net.Packets;
 import io.anuke.mindustry.plugin.Plugin;
 
 public class RegistrationPlugin extends Plugin{
@@ -15,6 +17,7 @@ public class RegistrationPlugin extends Plugin{
     //register event handlers and create variables in the constructor
     public RegistrationPlugin(){
         Events.on(PlayerJoin.class, event ->{
+            //kick players if gameover happened
             sqliteDB db = new sqliteDB();
             if (!event.player.isAdmin && db.isAdmin(event.player.uuid)){
                 Vars.netServer.admins.adminPlayer(event.player.uuid, event.player.usid);
@@ -22,6 +25,11 @@ public class RegistrationPlugin extends Plugin{
             } else if(event.player.isAdmin && !db.isAdmin(event.player.uuid)){
                 Vars.netServer.admins.unAdminPlayer(event.player.uuid);
                 event.player.isAdmin = false;
+            }
+            //if gameover kick
+            if (Vars.state.gameOver){
+                Call.onKick(event.player.con.id, Packets.KickReason.kick);
+                return;
             }
             //check if uuid in db
             if (db.uuidCheck(event.player.uuid)){
@@ -44,9 +52,17 @@ public class RegistrationPlugin extends Plugin{
            db.closeConnection();
         });
 
-        Events.on(WorldLoadEvent.class, event ->{
+        Events.on(GameOverEvent.class, event ->{
             //put the players who aren't yet logged in back on a team with no core
-
+            sqliteDB db = new sqliteDB();
+            for (Player p: Vars.playerGroup.all()){
+                System.out.println(p.name);
+                if (!db.loggedIn(p.uuid)){
+                    //kick the players
+                    Call.onKick(p.con.id, Packets.KickReason.kick);
+                }
+            }
+            db.closeConnection();
         });
 
     }
