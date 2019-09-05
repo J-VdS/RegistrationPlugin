@@ -6,10 +6,11 @@ run this command in your commandprompt: `pip install -U discord.py`
 To run this bot you will need to make a token.txt file first. This file should contain:
 ```
 token
-your_id
+serverid
 test.db
 ```
 The last line should always be `test.db`.
+You also need to add 2 roles: Registered and Admin. This is neccessary, otherwise the bot will not add the roles!
 
 ### Finally starting the bot:
 copy and paste `loop.py`,` bot.py`, `sqlite_mindustry.py` and `token.txt` in the server directory. (directory containing run_server.bat, run_server.sh or server.jar)
