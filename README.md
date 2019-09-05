@@ -33,4 +33,4 @@ Simply place the output jar from the step above in your server's `config/plugins
 List your currently installed plugins by running the `plugins` command.
 
 ### TODO
-[ ] make a new team instead of searching for one without a core
+[ ] make a new team instead of searching for one without a core (This only happens during pvp when there are 6 different teams on the map)
