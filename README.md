@@ -62,4 +62,4 @@ List your currently installed plugins by running the `plugins` command.
 
 ### TODO
 * [ ] make a new team instead of searching for one without a core (This only happens during pvp when there are 6 different teams on the map)
-* [ ] when a player gets admin in game he needs to remain it after leaving.
+* [ ] when a player gets admin in game. He needs to be an admin next time he joins.
