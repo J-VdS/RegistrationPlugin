@@ -38,13 +38,13 @@ When you startup the bot or a player joins `test.db` gets generated.
 
 ### commands
 In-game:
-* /login <username> <password>
-* /team 
+* `/login <username> <password>`
+* `/team` 
 Discord:
-* ..signup <username> <password> --> needs to be in DM
-* ..showlogin
-* ..changelogin <new_username> <new_password>
-* ..deletelogin
+* `..signup <username> <password>` --> needs to be in DM
+* `..showlogin`
+* `..changelogin <new_username> <new_password>`
+* `..deletelogin`
 
 ### Building a Jar
 
