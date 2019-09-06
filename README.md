@@ -36,6 +36,15 @@ server
 ```
 When you startup the bot or a player joins `test.db` gets generated.
 
+### commands
+In-game:
+* /login <username> <password>
+* /team 
+Discord:
+* ..signup <username> <password> --> needs to be in DM
+* ..showlogin
+* ..changelogin <new_username> <new_password>
+* ..deletelogin
 
 ### Building a Jar
 
@@ -52,5 +61,5 @@ Simply place the output jar from the step above in your server's `config/plugins
 List your currently installed plugins by running the `plugins` command.
 
 ### TODO
-[ ] make a new team instead of searching for one without a core (This only happens during pvp when there are 6 different teams on the map)
-[ ] when a player gets admin in game he needs to remain it after leaving.
+* [ ] make a new team instead of searching for one without a core (This only happens during pvp when there are 6 different teams on the map)
+* [ ] when a player gets admin in game he needs to remain it after leaving.
