@@ -13,7 +13,7 @@ The last line should always be `test.db`.
 You also need to add 2 roles: Registered and Admin. This is neccessary, otherwise the bot will not add the roles! The prefix of the bot is `..`
 
 ### Finally starting the bot:
-copy and paste `loop.py`,` bot.py`, `sqlite_mindustry.py` and `token.txt` in the server directory. (directory containing run_server.bat, run_server.sh or server.jar)
+copy and paste `loop.py`,` bot.py`, `sqlite_mindustry.py` and `token.txt` in the server directory. (directory containing run_server.bat, run_server.sh or server.jar). You can test the bot via `python bot.py`. If no error appears, close the python application and run:
 `python loop.py`
 
 The bot will run forever until you use ..shutdown in your discord server.
