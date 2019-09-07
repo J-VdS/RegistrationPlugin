@@ -1,7 +1,8 @@
 ### Discordbot
 install python 3.6 or higher
 
-run this command in your commandprompt: `pip install -U discord.py` 
+run this command in your commandprompt: `pip3 install -U discord.py` on linux
+
 
 To run this bot you will need to make a token.txt file first. This file should contain:
 ```
@@ -41,10 +42,10 @@ In-game:
 * `/login <username> <password>`
 * `/team` 
 Discord:
-* `..signup <username> <password>` --> needs to be in DM
-* `..showlogin`
-* `..changelogin <new_username> <new_password>`
-* `..deletelogin`
+* `!signup <username> <password>` --> needs to be in DM
+* `!showlogin`
+* `!changelogin <new_username> <new_password>`
+* `!deletelogin`
 
 ### Building a Jar
 
