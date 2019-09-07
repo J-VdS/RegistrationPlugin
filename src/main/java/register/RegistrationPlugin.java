@@ -34,7 +34,7 @@ public class RegistrationPlugin extends Plugin{
             }
             //check if uuid in db
             if (db.uuidCheck(event.player.uuid)){
-                event.player.sendMessage("[green]Login succes via uuid[]\n[sky]Enjoy your game![]");
+                event.player.sendMessage("[green]Login succes via your device information.[]\n[sky]Enjoy your game![]");
                 db.closeConnection();
                 return;
             } else {
@@ -44,7 +44,7 @@ public class RegistrationPlugin extends Plugin{
             Team no_core = getTeamNoCore(event.player);
             event.player.setTeam(no_core);
             Call.onPlayerDeath(event.player);
-            Call.onInfoMessage(event.player.con.id, "[sky]You will need to login with [accent]/login <username> <password>[] to get access to the server.[] More info on the indielm discordserver.");
+            Call.onInfoMessage(event.player.con.id, "[sky]You will need to login with [][accent]/login <username> <password>[][sky] to get access to the server.[] More info on the indielm discordserver.");
         });
 
         Events.on(PlayerLeave.class, event ->{
@@ -101,7 +101,7 @@ public class RegistrationPlugin extends Plugin{
                     player.setTeam(Vars.defaultTeam);
                     Call.onPlayerDeath(player);
                 }
-                player.sendMessage("Your uuid is saved to skip the login procedure next time.");
+                player.sendMessage("Some device information is stored to skip the login procedure next time.");
 
             } else {
                 player.sendMessage("[scarlet]Wrong login and pwd combination[]\nOnly use lowercase letters.");

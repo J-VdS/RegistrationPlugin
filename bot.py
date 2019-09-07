@@ -18,7 +18,7 @@ roles:
     #Admin
 '''
 
-client = commands.Bot(command_prefix = '..') 
+client = commands.Bot(command_prefix = '!') 
 
 
 @client.event
@@ -50,6 +50,8 @@ You are able to change them with !changelogin and see them with !showllogin.
     guild = client.get_guild(SERVERID)
     if guild:
         registered_role = discord.utils.find(lambda r: r.name == "Registered", guild.roles)
+    else:
+        registered_role = None
     
     if not(isinstance(ctx.channel, discord.DMChannel)):
         await ctx.message.delete()
@@ -75,7 +77,7 @@ You are able to change them with !changelogin and see them with !showllogin.
             #role = discord.utils.get(msg.server.roles, name=ROLE)
             #await client.add_roles(member, role)
             await ctx.send('Success!')
-            if registered_role:
+            if guild:
                 member = guild.get_member(ctx.author.id)
                 await member.add_roles(registered_role)
         else:
@@ -103,6 +105,11 @@ async def showlogin(ctx):
 @client.command()
 async def changelogin(ctx, login=None, password=None):
     info="Press !changelogin followed by your new username and new password (in this chat).\n**important:** The system isn't case sensitive."
+    
+    guild = client.get_guild(SERVERID)
+    registered_role = discord.utils.find(lambda r: r.name == "Registered", guild.roles)
+    member = guild.get_member(ctx.author.id)
+    
     if not(isinstance(ctx.channel, discord.DMChannel)):
         await ctx.message.delete()
         try:
@@ -114,6 +121,8 @@ async def changelogin(ctx, login=None, password=None):
     elif len(ctx.message.content.split(' ')) > 3:
         await ctx.send('**Don\'t use spaces in your password or username**')
         await ctx.send(info)
+    elif not(registered_role in member.roles):
+        await ctx.send("You will need to make an account first!")
     else:
         succes = sqlite_mindustry.changeLogin(DB, ctx.author.id, login.lower(), password.lower())
         await ctx.send('Success!' if succes else 'Change login failed!')
