@@ -28,6 +28,7 @@ public class RegistrationPlugin extends Plugin{
             }
             //if gameover kick
             if (Vars.state.gameOver){
+                Call.onInfoMessage(event.player.con.id, "You got kicked because it was gameover. \n\nYou can try again in [accent]30 seconds[].");
                 Call.onKick(event.player.con.id, Packets.KickReason.kick);
                 return;
             }
@@ -43,7 +44,7 @@ public class RegistrationPlugin extends Plugin{
             Team no_core = getTeamNoCore(event.player);
             event.player.setTeam(no_core);
             Call.onPlayerDeath(event.player);
-            event.player.sendMessage("[sky]You will need to login with [accent]/login[] to get access to the server.[] More info on the indielm discordserver.");
+            Call.onInfoMessage(event.player.con.id, "[sky]You will need to login with [accent]/login <username> <password>[] to get access to the server.[] More info on the indielm discordserver.");
         });
 
         Events.on(PlayerLeave.class, event ->{
@@ -59,12 +60,12 @@ public class RegistrationPlugin extends Plugin{
                 System.out.println(p.name);
                 if (!db.loggedIn(p.uuid)){
                     //kick the players
+                    Call.onInfoMessage(p.con.id, "You got kicked because it was gameover. \nAsk for help how to login on the indielm discordserver.\n\nYou can try again in [accent]30 seconds[].");
                     Call.onKick(p.con.id, Packets.KickReason.kick);
                 }
             }
             db.closeConnection();
         });
-
     }
 
     //register commands that run on the server
